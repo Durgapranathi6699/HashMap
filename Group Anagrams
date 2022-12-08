@@ -1,0 +1,28 @@
+class Solution {
+    public List<List<String>> groupAnagrams(String[] strs) {
+      
+        HashMap<HashMap<Character,Integer>,ArrayList<String>> map=new HashMap<>();
+        //key hasmap(freq of each string)  value as list
+        
+        for(String s:strs){//traverse each string in an array
+            
+            HashMap<Character,Integer> smap=new HashMap<>();//create freq map for each string
+            
+            for(int i=0;i<s.length();i++){
+                smap.put(s.charAt(i),smap.getOrDefault(s.charAt(i),0)+1);
+            }
+            
+            if(map.containsKey(smap)==false){//frq map does not exit previously  in map add as new list
+                ArrayList<String> l=new ArrayList<>();
+                l.add(s);
+                map.put(smap,l);
+            }else{
+                //if freq map already exit add new string to already existing list
+                
+                 ArrayList<String> l=map.get(smap);
+                 l.add(s);
+            }
+        }
+        return new ArrayList<>(map.values());
+    }
+}
